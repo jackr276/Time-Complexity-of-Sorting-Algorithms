@@ -1,14 +1,150 @@
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Random;
 
 public class partB {
     public static void main(String[] args){
-        int[] randarr1 = createRandArr(100);
-        System.out.println(Arrays.toString(randarr1));
-        System.out.println(Arrays.toString(mergeSort(randarr1.clone(), 0, randarr1.length-1)));
+        long[] times_bbsort = new long[10];
+        long[] times_isort = new long[10];
+        long[] times_ssort = new long[10];
+        long[] times_msort = new long[10];
+
+        //Test array of size 100
+        long[] time100 = testSorting(100);
+        times_bbsort[0] = time100[0];
+        times_isort[0] = time100[1];
+        times_ssort[0] = time100[2];
+        times_msort[0] = time100[3];
+
+        //Test array of size 1000
+        long[] time1000 = testSorting(1000);
+        times_bbsort[1] = time1000[0];
+        times_isort[1] = time1000[1];
+        times_ssort[1] = time1000[2];
+        times_msort[1] = time1000[3];
+
+        //Test array of size 10000
+        long[] time10000 = testSorting(10000);
+        times_bbsort[2] = time10000[0];
+        times_isort[2] = time10000[1];
+        times_ssort[2] = time10000[2];
+        times_msort[2] = time10000[3];
+
+        //Test array of size 30000
+        long[] time30000 = testSorting(30000);
+        times_bbsort[3] = time30000[0];
+        times_isort[3] = time30000[1];
+        times_ssort[3] = time30000[2];
+        times_msort[3] = time30000[3];
+
+        //Test array of size 50000
+        long[] time50000 = testSorting(50000);
+        times_bbsort[4] = time50000[0];
+        times_isort[4] = time50000[1];
+        times_ssort[4] = time50000[2];
+        times_msort[4] = time50000[3];
+
+        // Test array of size 90000
+        long[] time90000 = testSorting(90000);
+        times_bbsort[5] = time90000[0];
+        times_isort[5] = time90000[1];
+        times_ssort[5] = time90000[2];
+        times_msort[5] = time90000[3];
+
+        // Test array of size 100000
+        long[] time100000 = testSorting(100000);
+        times_bbsort[6] = time100000[0];
+        times_isort[6] = time100000[1];
+        times_ssort[6] = time100000[2];
+        times_msort[6] = time100000[3];
+
+        // Test array of size 300000
+        long[] time300000 = testSorting(300000);
+        times_bbsort[7] = time300000[0];
+        times_isort[7] = time300000[1];
+        times_ssort[7] = time300000[2];
+        times_msort[7] = time300000[3];
+
+        // Test array of size 500000
+        long[] time500000 = testSorting(500000);
+        times_bbsort[8] = time500000[0];
+        times_isort[8] = time500000[1];
+        times_ssort[8] = time500000[2];
+        times_msort[8] = time500000[3];
+
+        // Test array of size 800000
+        long[] time800000 = testSorting(800000);
+        times_bbsort[9] = time800000[0];
+        times_isort[9] = time800000[1];
+        times_ssort[9] = time800000[2];
+        times_msort[9] = time800000[3];
+
+        // Find the average time for Bubblesort
+        System.out.print("Average time for BubbleSort: " + findAvgTime(times_bbsort));
+        System.out.println("Average time for InsertionSort: " + findAvgTime(times_isort));
+        System.out.println("Average time for SelectionSort: " + findAvgTime(times_ssort));
+        System.out.println("Average time for MergeSort: " + findAvgTime(times_msort));
+
 
 
     }
+
+    private static double findAvgTime(long[] timeArr){
+        double sum = 0;
+        for (int i = 0; i<timeArr.length; i++){
+            sum += timeArr[i];
+        }
+        return sum / timeArr.length;
+    }
+
+    private static long[] testSorting(int listSize){
+        int[] testing = createRandArr(listSize);
+        int[] sorted;
+        long[] times =  new long[4];
+        System.out.println("Testing array of size: " + listSize);
+        System.out.println();
+
+        // Test Bubblesort and record time
+        System.out.print("Using Bubble sort(Milliseconds): ");
+        long bubbleCounterStart = System.currentTimeMillis();
+        sorted = bubbleSort(testing);
+        long bubbleCounterStop = System.currentTimeMillis();
+        times[0] = bubbleCounterStop-bubbleCounterStart;
+        System.out.println(Long.toString(times[0]));
+
+        // Test Insertionsort and record time
+        System.out.print("Using Insertion sort(Milliseconds): ");
+        long InsertionCounterStart = System.currentTimeMillis();
+        sorted = insertionSort(testing);
+        long InsertionCounterStop = System.currentTimeMillis();
+        times[1] = InsertionCounterStop-InsertionCounterStart;
+        System.out.println(Long.toString(times[1]));
+
+        // Test Selectionsort and record time
+        System.out.print("Using Selection sort(Milliseconds): ");
+        long SelectionCounterStart = System.currentTimeMillis();
+        sorted = selectionSort(testing);
+        long SelectionCounterStop = System.currentTimeMillis();
+        times[2] = SelectionCounterStop-SelectionCounterStart;
+        System.out.println(Long.toString(times[2]));
+
+        // Test Mergesort and record time
+        System.out.print("Using Merge sort(Milliseconds): ");
+        int[] unsortedMergeArr = testing.clone();
+        long MergeCounterStart = System.currentTimeMillis();
+        sorted = mergeSort(unsortedMergeArr, 0, testing.length-1);
+        long MergeCounterStop = System.currentTimeMillis();
+        times[3] = MergeCounterStop-MergeCounterStart;
+        System.out.println(Long.toString(times[3]));
+        System.out.println("_________________________________________________________________________________________");
+
+        return times;
+    }
+
+
+
+
+
+
 
 
     private static int[] createRandArr(int arraySize){
@@ -22,7 +158,7 @@ public class partB {
         return randArr;
     }
 
-    private static int[] BubbleSort(int[] unsortedArr){
+    private static int[] bubbleSort(int[] unsortedArr){
         int[] internalArr = unsortedArr.clone();
         boolean sorted = false;
         int temp;
@@ -58,19 +194,17 @@ public class partB {
 
     private static int[] selectionSort(int[] unsortedArr){
         int[] internalArr = unsortedArr.clone();
-        for (int i = 0; i < internalArr.length; i++){
-            int minIndex = i;
-            int minValue = unsortedArr[i];
+        for (int i = 0; i < internalArr.length-1; i++){
 
+            int minIndex = i;
             for (int j = i+1; j < internalArr.length; j++){
-                if (minValue > internalArr[j]){
-                    minValue = internalArr[j];
+                if (internalArr[j] < internalArr[minIndex]){
                     minIndex = j;
                 }
             }
-            int temp = internalArr[i];
-            internalArr[i] = internalArr[minIndex];
-            internalArr[minIndex] = temp;
+            int temp = internalArr[minIndex];
+            internalArr[minIndex] = internalArr[i];
+            internalArr[i] = temp;
         }
         return internalArr;
     }
