@@ -4,19 +4,18 @@
  * Professor Sawh
  *
  * This class is a generic implementation for a node on a binary search tree
- * @param <T> TreeNode is generic
  */
-public class TreeNode<T> {
-    private T data;
-    private TreeNode<T> left;
-    private TreeNode<T> right;
+public class TreeNode {
+    private int data;
+    private TreeNode left;
+    private TreeNode right;
 
 
     /**
      * The constructor for treenode. Left and right are always initialized to null
      * @param data the node's data
      */
-    public TreeNode(T data){
+    public TreeNode(int data){
         this.data = data;
         left = right = null;
     }
@@ -26,7 +25,7 @@ public class TreeNode<T> {
      * A simple getter for the left node
      * @return the left node
      */
-    public TreeNode<T> getLeft() {
+    public TreeNode getLeft() {
         return this.left;
     }
 
@@ -35,7 +34,7 @@ public class TreeNode<T> {
      * A simple setter for the left node
      * @param newLeft the new left node
      */
-    public void setLeft(TreeNode<T> newLeft){
+    public void setLeft(TreeNode newLeft){
         this.left = newLeft;
     }
 
@@ -44,7 +43,7 @@ public class TreeNode<T> {
      * A simple getter for the right node
      * @return the right node
      */
-    public TreeNode<T> getRight() {
+    public TreeNode getRight() {
         return this.right;
     }
 
@@ -53,7 +52,7 @@ public class TreeNode<T> {
      * A simple setter for the right node
      * @param newRight the new right node
      */
-    public void setRight(TreeNode<T> newRight) {
+    public void setRight(TreeNode newRight) {
         this.right = newRight;
     }
 
@@ -62,7 +61,7 @@ public class TreeNode<T> {
      * A simple getter for the data
      * @return the node's data
      */
-    public T getData(){
+    public int getData(){
         return this.data;
     }
 
@@ -71,7 +70,7 @@ public class TreeNode<T> {
      * A simple setter for the data
      * @param newData the new data
      */
-    public void setData(T newData) {
+    public void setData(int newData) {
         this.data = newData;
     }
 
@@ -81,6 +80,6 @@ public class TreeNode<T> {
      * @return the toString of the data
      */
     public String toString(){
-        return this.data.toString();
+        return Integer.toString(this.data);
     }
 }
