@@ -79,7 +79,7 @@ public class partB {
         times_msort[9] = time800000[3];
 
         // Find the average time for Bubblesort
-        System.out.print("Average time for BubbleSort: " + findAvgTime(times_bbsort));
+        System.out.println("Average time for BubbleSort: " + findAvgTime(times_bbsort));
         System.out.println("Average time for InsertionSort: " + findAvgTime(times_isort));
         System.out.println("Average time for SelectionSort: " + findAvgTime(times_ssort));
         System.out.println("Average time for MergeSort: " + findAvgTime(times_msort));
