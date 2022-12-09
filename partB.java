@@ -1,7 +1,24 @@
-import java.util.Calendar;
+/**
+ * @author Jack Robbins
+ * CMP-233
+ * Professor Sawh
+ * Assignment 4 Part B
+ *
+ * This part of the assignment programatically generates arrays of integers of varying sizes, uses 4 sorting algorithms
+ * to test them, and records the individual times taken and the average time for each of the 4 sorting algorithms
+ * acros all of the arrays
+ */
 import java.util.Random;
 
+
 public class partB {
+
+
+    /**
+     * The main method simply calls testSorting ten times and records the time for each sorting algorithm. Then uses
+     * the helper function findAvgTime to find and print the average time to the console
+     * @param args not used
+     */
     public static void main(String[] args){
         long[] times_bbsort = new long[10];
         long[] times_isort = new long[10];
@@ -79,15 +96,21 @@ public class partB {
         times_msort[9] = time800000[3];
 
         // Find the average time for Bubblesort
-        System.out.println("Average time for BubbleSort: " + findAvgTime(times_bbsort));
-        System.out.println("Average time for InsertionSort: " + findAvgTime(times_isort));
-        System.out.println("Average time for SelectionSort: " + findAvgTime(times_ssort));
-        System.out.println("Average time for MergeSort: " + findAvgTime(times_msort));
+        System.out.println("Average time for BubbleSort(Milliseconds): " + findAvgTime(times_bbsort));
+        System.out.println("Average time for InsertionSort(Milliseconds): " + findAvgTime(times_isort));
+        System.out.println("Average time for SelectionSort(Milliseconds): " + findAvgTime(times_ssort));
+        System.out.println("Average time for MergeSort(Milliseconds): " + findAvgTime(times_msort));
 
 
 
     }
 
+
+    /**
+     * A simple helper function that finds the average time given an array filled with long time values
+     * @param timeArr the array to be averaged
+     * @return the average time
+     */
     private static double findAvgTime(long[] timeArr){
         double sum = 0;
         for (int i = 0; i<timeArr.length; i++){
@@ -96,6 +119,15 @@ public class partB {
         return sum / timeArr.length;
     }
 
+
+    /**
+     * The testSorting method will call generateRandomArr of the specified size, then it will systematically
+     * test all of the four sorting algorithms on the same array and calculate the time required for the
+     * system to complete. These times are printed to the console in a formatted way.
+     * @param listSize the desired size of the list
+     * @return a long[] filled with the times for Bubblesort, InsertionSort, SelectionSort, and Mergesort,
+     * in said order
+     */
     private static long[] testSorting(int listSize){
         int[] testing = createRandArr(listSize);
         int[] sorted;
@@ -141,12 +173,12 @@ public class partB {
     }
 
 
-
-
-
-
-
-
+    /**
+     * Creates an array of a specified size filled with numbers ranging from -10000 to 10000. All numbers are
+     * generated randomly to ensure that our sorting algorithms actually have something to do
+     * @param arraySize the size for the array
+     * @return an array of size arraySize full of random, out of order integers
+     */
     private static int[] createRandArr(int arraySize){
         Random rand = new Random();
         int[] randArr = new int[arraySize];
@@ -158,6 +190,12 @@ public class partB {
         return randArr;
     }
 
+
+    /**
+     * An implementation of an improved bubbleSort algorithm for this project
+     * @param unsortedArr the initial, unsorted array
+     * @return a sorted array
+     */
     private static int[] bubbleSort(int[] unsortedArr){
         int[] internalArr = unsortedArr.clone();
         boolean sorted = false;
@@ -177,6 +215,12 @@ public class partB {
         return internalArr;
     }
 
+
+    /**
+     * The insertion sort implementation for this project
+     * @param unsortedArr the initial, unsorted array
+     * @return the sorted array
+     */
     private static int[] insertionSort(int[] unsortedArr){
         int[] internalArr = unsortedArr.clone();
         for (int unsorted = 1; unsorted < internalArr.length; unsorted++){
@@ -192,6 +236,11 @@ public class partB {
     }
 
 
+    /**
+     * The selection sort implementation for this project
+     * @param unsortedArr the initial, unsorted array
+     * @return the sorted array
+     */
     private static int[] selectionSort(int[] unsortedArr){
         int[] internalArr = unsortedArr.clone();
         for (int i = 0; i < internalArr.length-1; i++){
@@ -209,6 +258,14 @@ public class partB {
         return internalArr;
     }
 
+
+    /**
+     * The merge sort implementation for this project
+     * @param internalArr the internal array
+     * @param first the starting index for the entire array
+     * @param last the ending index for the entire array
+     * @return a sorted array
+     */
     private static int[] mergeSort(int[] internalArr, int first, int last){
 
         if (first < last){
@@ -223,6 +280,14 @@ public class partB {
     }
 
 
+    /**
+     * Merge is a helper function for merge sort. It merges the arrays that were split up by the recursive process
+     * of merge sort
+     * @param internalArr the array to be sorted
+     * @param first the starting index
+     * @param mid the middle index
+     * @param last the ending index
+     */
     private static void merge(int[] internalArr, int first, int mid, int last) {
       int size1 = mid - first + 1;
       int size2 = last - mid;
