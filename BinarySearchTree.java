@@ -1,5 +1,7 @@
+import java.util.LinkedList;
+import java.util.Queue;
 
-public class BinarySearchTree<T> {
+public class BinarySearchTree {
     private TreeNode root;
 
     public BinarySearchTree(){
@@ -28,7 +30,10 @@ public class BinarySearchTree<T> {
     }
 
 
-    public void delete(int item){
+    public void delete(int item) throws TreeException{
+        if (root == null) {
+            throw new TreeException("Error. Attempting to delete from an empty tree");
+        }
         root = deleteRec(root, item);
     }
 
@@ -50,7 +55,7 @@ public class BinarySearchTree<T> {
             } else if (root.getRight() == null){
                 return root.getLeft();
             }
-            //Set root's data to be its inorder successor
+            // Set root's data to be its inorder successor
             // This would be its minimum value in the right subtree
             root.setData(minValue(root.getRight()));
 
@@ -70,5 +75,86 @@ public class BinarySearchTree<T> {
             root = root.getLeft();
         }
         return minVal;
+    }
+
+    public void printBreadthFirst(){
+        // Check to see if tree is empty
+        if (root == null){
+            System.out.print("The tree is empty");
+        } else {
+            // Use a queue to ensure the order is right
+            Queue<TreeNode> nodes = new LinkedList<>();
+            nodes.add(root);
+            while (!nodes.isEmpty()){
+                TreeNode removed = nodes.remove();
+                System.out.print(" " + removed.getData());
+                // Add left node if not null
+                if (removed.getLeft() != null){
+                    nodes.add(removed.getLeft());
+                }
+                // Add right node if not null
+                if (removed.getRight() != null){
+                    nodes.add(removed.getRight());
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    public void printPostOrderWrapper(){
+        if (root == null) {
+            System.out.print("The tree is empty");
+        } else {
+            printPostOrder(root);
+        }
+        System.out.println();
+    }
+    private void printPostOrder(TreeNode node){
+        if (node == null){
+            return;
+        }
+        printPostOrder(node.getLeft());
+        printPostOrder(node.getRight());
+
+        System.out.print(node.getData() + " ");
+    }
+
+    public void printInOrderWrapper() {
+        if (root == null) {
+            System.out.print("The tree is empty");
+        } else {
+            printInOrder(root);
+        }
+        System.out.println();
+    }
+
+    private void printInOrder(TreeNode node){
+        if (node == null){
+            return;
+        }
+        printInOrder(node.getLeft());
+
+        System.out.print(node.getData() + " ");
+
+        printInOrder(node.getRight());
+    }
+
+    public void printPreOrderWrapper(){
+        if (root == null){
+            System.out.print("The tree is empty");
+        } else {
+            printPreOrder(root);
+        }
+        System.out.println();
+    }
+
+    private void printPreOrder(TreeNode node){
+        if (node == null){
+            return;
+        }
+        System.out.print(node.getData() + " ");
+
+        printPreOrder(node.getLeft());
+        printPreOrder(node.getRight());
     }
 }
