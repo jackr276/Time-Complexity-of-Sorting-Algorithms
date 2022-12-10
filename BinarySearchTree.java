@@ -1,16 +1,41 @@
+/**
+ * @author Jack Robbins
+ * CMP-233
+ * Professor Sawh
+ *
+ * The BinarySearchTree class is made for a binary search tree of integers. Supports delete, add, breadth-first print,
+ * post-order print, in-order print, pre-order print
+ */
 import java.util.LinkedList;
 import java.util.Queue;
 
+
 public class BinarySearchTree {
+    // The root is all that is needed to keep track of the tree
     private TreeNode root;
 
+
+    // To initialize, set the root to be null
     public BinarySearchTree(){
         this.root = null;
     }
 
+
+    /**
+     * This is a simple wrapper for the add method
+     * @param item the item to be added
+     */
     public void add(int item){
         root = addRec(root, item);
     }
+
+
+    /**
+     * The actual add method. Is implemented recursively and needs a node and the item to be added.
+     * @param root the node used to keep track of the tree
+     * @param item the item to be added
+     * @return either the left or right node, this method is recursive
+     */
     private TreeNode addRec(TreeNode root, int item){
         // Tree is empty
         if (root == null) {
@@ -30,6 +55,11 @@ public class BinarySearchTree {
     }
 
 
+    /**
+     * A simple wrapper for the delete method
+     * @param item the item to be deleted
+     * @throws TreeException throws an exception if the user tries to delete from an empty tree
+     */
     public void delete(int item) throws TreeException{
         if (root == null) {
             throw new TreeException("Error. Attempting to delete from an empty tree");
@@ -37,12 +67,19 @@ public class BinarySearchTree {
         root = deleteRec(root, item);
     }
 
+
+    /**
+     * The recursive actual delete method. Recursively traverses the tree to find the item to be deleted. If the
+     * item is not found, nothing is deleted
+     * @param root the root node
+     * @param item the item to be deleted
+     * @return either the left or right node, delete is recursive
+     */
     private TreeNode deleteRec(TreeNode root, int item){
         //Tree is empty
         if (root == null){
             return root;
         }
-
         //Traverse the tree
         if (item < root.getData()){ //traverse left
             root.setLeft(deleteRec(root.getLeft(), item));
@@ -66,6 +103,12 @@ public class BinarySearchTree {
     }
 
 
+    /**
+     * A simple helper method that finds the minimum value in the tree. Is used by delete to determine where to
+     * travers
+     * @param root the node
+     * @return an integer minimum value
+     */
     private int minValue(TreeNode root){
         // Start off with minVal being root's value
         int minVal = root.getData();
@@ -77,6 +120,11 @@ public class BinarySearchTree {
         return minVal;
     }
 
+
+    /**
+     * The method that prints Breadth-first. Uses a queue to keep track of the nodes that have been removed to ensure
+     * that a FIFO structure is maintained when printing the tree
+     */
     public void printBreadthFirst(){
         // Check to see if tree is empty
         if (root == null){
@@ -101,6 +149,11 @@ public class BinarySearchTree {
         System.out.println();
     }
 
+
+    /**
+     * A simple wrapper method for the printPostOrder method. Prints the tree is empty if it's empty, otherwise
+     * calls printPostOrder
+     */
     public void printPostOrderWrapper(){
         if (root == null) {
             System.out.print("The tree is empty");
@@ -109,6 +162,13 @@ public class BinarySearchTree {
         }
         System.out.println();
     }
+
+
+    /**
+     * A recursive implementation of printing post order. Calls itself on node.getLeft and node.getRight before
+     * printing the node's data, this way inorder structure is maintained
+     * @param node the node that is returned, either left or right
+     */
     private void printPostOrder(TreeNode node){
         if (node == null){
             return;
@@ -119,6 +179,11 @@ public class BinarySearchTree {
         System.out.print(node.getData() + " ");
     }
 
+
+    /**
+     * A simple wrapper for the printInOrder method. Prints if the tree is empty, otherwise calls
+     * printInOrder
+     */
     public void printInOrderWrapper() {
         if (root == null) {
             System.out.print("The tree is empty");
@@ -128,6 +193,12 @@ public class BinarySearchTree {
         System.out.println();
     }
 
+
+    /**
+     * A recursive implementation of printing inOrder. Calls printInOrder on the left side first, then prints the node,
+     * then calls the function on the right side of the tree, to maintain an in-order structure
+     * @param node the node passed into the functions
+     */
     private void printInOrder(TreeNode node){
         if (node == null){
             return;
@@ -139,6 +210,11 @@ public class BinarySearchTree {
         printInOrder(node.getRight());
     }
 
+
+    /**
+     * A simple wrapper method for the preOrder method. Checks if the tree is empty, otherwise calls
+     * printInOrder
+     */
     public void printPreOrderWrapper(){
         if (root == null){
             System.out.print("The tree is empty");
@@ -148,6 +224,12 @@ public class BinarySearchTree {
         System.out.println();
     }
 
+
+    /**
+     * The recursize implementation of the printPreOrder method. First prints the data in the node, then calls
+     * itself on the left and then right subtrees. This way, the tree is printed in reverse
+     * @param node the node that is passed in
+     */
     private void printPreOrder(TreeNode node){
         if (node == null){
             return;
