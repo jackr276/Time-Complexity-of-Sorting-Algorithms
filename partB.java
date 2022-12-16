@@ -184,7 +184,7 @@ public class partB {
         int[] randArr = new int[arraySize];
         int i = 0;
         while (i < arraySize){
-            randArr[i] = rand.nextInt(-10000, 10000);
+            randArr[i] = rand.nextInt(10000);
             i++;
         }
         return randArr;
