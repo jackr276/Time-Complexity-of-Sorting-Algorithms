@@ -33,7 +33,7 @@ public class partA {
 
 
     /**
-     * The private helped function that checks if the expression is balanced
+     * The private helper function that checks if the expression is balanced
      * @param input the string inputted by the user
      * @return -1 if the expression is balanced, or the position of the mistake if it is not balanced
      */
